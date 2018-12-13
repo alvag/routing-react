@@ -1,3 +1,7 @@
-export interface IMyInterface {
-    prop: string;
+export interface IProduct {
+    id: number;
+    nombre: string;
+    precio: number;
+    imagen: string;
+    descripcion: string;
 }

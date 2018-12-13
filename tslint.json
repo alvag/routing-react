@@ -25,6 +25,8 @@
             }
         ],
         "jsx-no-multiline-js": false,
+        "jsx-boolean-value": false,
+        "jsx-no-lambda": false,
         "member-access": false,
         "ordered-imports": false
     }
