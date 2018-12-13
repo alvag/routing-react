@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import './Product.css';
+import { IProduct } from '../../../Interfaces';
 
-class Products extends Component {
+interface IProps {
+    product: IProduct;
+}
+
+class Product extends Component<IProps> {
     render() {
         return (
-            <div className="productos">
-                <h2>Nuestros Productos</h2>
-
-                <ul className="lista-productos">
-
-                </ul>
-            </div>
+            <li>Producto</li>
         );
     }
 }
 
-export default Products;
+export default Product;
