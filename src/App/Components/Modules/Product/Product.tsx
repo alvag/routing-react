@@ -6,12 +6,14 @@ interface IProps {
     product: IProduct;
 }
 
-class Product extends Component<IProps> {
-    render() {
-        return (
-            <li>Producto</li>
-        );
-    }
-}
+const Product = (props: IProps) => {
+    return (
+        <li>
+            <img src={`assets/img/${props.product.imagen}.png`} alt={props.product.nombre} title={props.product.nombre} />
+            <p>{props.product.nombre} <span>$ {props.product.precio}</span></p>
+            <a href="#">Más información</a>
+        </li>
+    );
+};
 
 export default Product;
