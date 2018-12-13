@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import { About, NotFound } from './Components/Pages';
+import { About, NotFound, ProductDetails } from './Components/Pages';
 import { Products } from './Components/Modules';
 import { Header } from './Components/Common';
 
 import { IProduct } from './Interfaces';
 
-import products from './data/data.json';
+import productsData from './data/data.json';
 
 interface IAppState {
     products: IProduct[];
@@ -20,7 +20,7 @@ class Router extends Component<{}, IAppState> {
     };
 
     componentDidMount() {
-        this.setState({ products });
+        this.setState({ products: productsData });
     }
 
     render() {
@@ -35,6 +35,16 @@ class Router extends Component<{}, IAppState> {
                             render={() => (
                                 <Products products={this.state.products} />
                             )}
+                        />
+                        <Route
+                            exact
+                            path="/producto/:id"
+                            render={(props) => {
+                                const productId = Number(props.match.params.id);
+                                const products = this.state.products as any[];
+                                const product = products.find((item) => item.id === productId);
+                                return (<ProductDetails product={product} />);
+                            }}
                         />
                         <Route exact={true} path="/nosotros" component={About} />
                         <Route component={NotFound} />

@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import './Product.css';
+import React from 'react';
 import { IProduct } from '../../../Interfaces';
 
 interface IProps {
