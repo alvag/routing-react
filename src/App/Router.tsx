@@ -43,7 +43,11 @@ class Router extends Component<{}, IAppState> {
                                 const productId = Number(props.match.params.id);
                                 const products = this.state.products as any[];
                                 const product = products.find((item) => item.id === productId);
-                                return (<ProductDetails product={product} />);
+                                if (product) {
+                                    return (<ProductDetails product={product} />);
+                                } else {
+                                    return (<NotFound />);
+                                }
                             }}
                         />
                         <Route exact={true} path="/nosotros" component={About} />
