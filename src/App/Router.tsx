@@ -11,19 +11,35 @@ import productsData from './data/data.json';
 
 interface IAppState {
     products: IProduct[];
+    searchTerm: string;
 }
 
 class Router extends Component<{}, IAppState> {
 
     state = {
-        products: []
+        products: [],
+        searchTerm: ''
     };
 
     componentDidMount() {
         this.setState({ products: productsData });
     }
 
+    filter = (): IProduct[] => {
+        let products = [...this.state.products] as IProduct[];
+
+        if (this.state.searchTerm) {
+            products = products.filter((product) => {
+                return product.nombre.toUpperCase().includes(this.state.searchTerm.toUpperCase());
+            });
+        }
+
+        return products;
+    }
+
     render() {
+        const products = this.filter();
+
         return (
             <BrowserRouter>
                 <div className="contenedor">
@@ -34,7 +50,10 @@ class Router extends Component<{}, IAppState> {
                             exact
                             path="/"
                             render={() => (
-                                <Products products={this.state.products} />
+                                <Products
+                                    products={products}
+                                    search={this.search}
+                                />
                             )}
                         />
                         <Route
@@ -42,7 +61,6 @@ class Router extends Component<{}, IAppState> {
                             path="/producto/:id"
                             render={(props) => {
                                 const productId = Number(props.match.params.id);
-                                const products = this.state.products as any[];
                                 const product = products.find((item) => item.id === productId);
                                 if (product) {
                                     return (<ProductDetails product={product} />);
@@ -55,7 +73,10 @@ class Router extends Component<{}, IAppState> {
                             exact
                             path="/productos"
                             render={() => (
-                                <Products products={this.state.products} />
+                                <Products
+                                    products={products}
+                                    search={this.search}
+                                />
                             )}
                         />
                         <Route exact path="/nosotros" component={About} />
@@ -65,6 +86,10 @@ class Router extends Component<{}, IAppState> {
                 </div>
             </BrowserRouter>
         );
+    }
+
+    search = (searchTerm: string) => {
+        this.setState({ searchTerm });
     }
 }
 
