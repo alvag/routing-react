@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import { About, NotFound, ProductDetails } from './Components/Pages';
+import { About, NotFound, ProductDetails, Contact } from './Components/Pages';
 import { Products } from './Components/Modules';
-import { Header } from './Components/Common';
+import { Header, Navigation } from './Components/Common';
 
 import { IProduct } from './Interfaces';
 
@@ -28,6 +28,7 @@ class Router extends Component<{}, IAppState> {
             <BrowserRouter>
                 <div className="contenedor">
                     <Header />
+                    <Navigation />
                     <Switch>
                         <Route
                             exact
@@ -50,7 +51,15 @@ class Router extends Component<{}, IAppState> {
                                 }
                             }}
                         />
-                        <Route exact={true} path="/nosotros" component={About} />
+                        <Route
+                            exact
+                            path="/productos"
+                            render={() => (
+                                <Products products={this.state.products} />
+                            )}
+                        />
+                        <Route exact path="/nosotros" component={About} />
+                        <Route exact path="/contacto" component={Contact} />
                         <Route component={NotFound} />
                     </Switch>
                 </div>
